@@ -1,85 +1,126 @@
+.Modal {
+  width: 600px;
+  height: 400px;
 
-.App{
-  width: 800px;
-  height: 800px;
-  background-color:#FBB647;
-  float:left;
+  float: left;
   margin-top: 100px;
   margin-left: 30%;
 }
-.example-block{
+
+.tabs {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  flex-direction: row;
+}
+
+.tab {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px 5px 0 0;
+  background-color: #FBB647;
+}
+
+.unactive-tab {
+  background-color: #F6B346;
+  box-shadow: 10px 10px 10px 2px rgba (34, 60, 80, 0.2) inset;
+}
+
+.window {
+  background-color: #FBB647;
+}
+
+.example-block {
   margin-top: 30px;
   margin-left: 50px;
-  display:flex;
+  display: flex;
   flex-direction: row;
   align-items: center;
-  
-  
-    
 }
-.hint{
-  
-  background-color:#FFFFFF;
+
+.hint {
+
+  background-color: #FFFFFF;
   border-radius: 0px 5px 5px 5px;
   margin-left: 10px;
   width: 80px;
-height: 20px;
-font-size: 10px;
+  height: 20px;
+  font-size: 10px;
 
- 
+
 }
-.image{
+
+.image {
   margin-top: 50px;
   margin-left: 50px;
   width: 90px;
   height: 90px;
 }
-.text{
+
+.text {
   border-bottom: 5px solid white;
   border-left: 15px solid transparent;
   margin-left: 20px;
-  
+
 }
-.Nhint{
+
+.Nhint {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  
+
 }
-.profile{
+
+.profile {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   margin-top: 80px;
   margin-left: 400px;
   width: 500px;
-height: 48.82px;
+  height: 48.82px;
 
 }
 
-.profile-photo{
-  
+.hint {
+
+  background-color: #FFFFFF;
+  border-radius: 0px 5px 5px 5px;
+  text-align: center;
+  width: 100px;
+  height: 20px;
+
+
+}
+
+.profile-photo {
+
   margin-left: 30px;
   width: 90px;
   height: 90px;
 }
+
 .tail {
   width: 250px;
   height: 50px;
   background-color: white;
   border-radius: 5px 5px 5px 0;
-  
-  
-}
-.message{
-  margin-top: 10px;
- text-align: center;
-  font-size: 15px;
-  font-weight: 100;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+
 }
 
-.text1{
+.message {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 100;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.text1 {
   border-bottom: 5px solid white;
   border-right: 15px solid transparent;
   margin-left: 245px;
