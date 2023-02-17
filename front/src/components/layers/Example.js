@@ -3,9 +3,9 @@ import React from 'react'
 function Example() {
   
   return (
-    <div className="hint">
+    <span className="hint">
       Заполнение заявки
-    </div>
+    </span>
   );
 }
 

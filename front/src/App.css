@@ -1,7 +1,5 @@
 .Modal {
   width: 600px;
-  height: 400px;
-
   float: left;
   margin-top: 100px;
   margin-left: 30%;
@@ -22,107 +20,130 @@
   justify-content: center;
   border-radius: 5px 5px 0 0;
   background-color: #FBB647;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, .1)
 }
 
 .unactive-tab {
   background-color: #F6B346;
-  box-shadow: 10px 10px 10px 2px rgba (34, 60, 80, 0.2) inset;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .1) inset
 }
 
 .window {
+  height: 400px;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.window::-webkit-scrollbar {
+  width: 12px;
+  /* ширина scrollbar */
+}
+
+.window::-webkit-scrollbar-track {
+  background: #D9D9D9;
+  /* цвет дорожки */
+}
+
+.window::-webkit-scrollbar-thumb {
+  background-color: white;
+  /* цвет плашки */
+  border-radius: 20px;
+  /* padding вокруг плашки */
+}
+
+.chat {
   background-color: #FBB647;
 }
 
-.example-block {
-  margin-top: 30px;
-  margin-left: 50px;
+.messages {
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.hint {
-
-  background-color: #FFFFFF;
-  border-radius: 0px 5px 5px 5px;
-  margin-left: 10px;
-  width: 80px;
-  height: 20px;
-  font-size: 10px;
-
-
+.message-item {
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem
 }
 
-.image {
-  margin-top: 50px;
-  margin-left: 50px;
-  width: 90px;
-  height: 90px;
+.user-item {
+  align-items: flex-end;
 }
 
-.text {
-  border-bottom: 5px solid white;
-  border-left: 15px solid transparent;
-  margin-left: 20px;
-
+.user-item > .message-block{
+  flex-direction: row-reverse;
 }
 
-.Nhint {
+.message-block {
+  max-width: 60%;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-
+  gap: .5rem;
 }
 
-.profile {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  margin-top: 80px;
-  margin-left: 400px;
-  width: 500px;
-  height: 48.82px;
-
-}
-
-.hint {
-
-  background-color: #FFFFFF;
-  border-radius: 0px 5px 5px 5px;
-  text-align: center;
-  width: 100px;
-  height: 20px;
-
-
-}
-
-.profile-photo {
-
-  margin-left: 30px;
-  width: 90px;
-  height: 90px;
-}
-
-.tail {
-  width: 250px;
-  height: 50px;
-  background-color: white;
-  border-radius: 5px 5px 5px 0;
-
-
+.message-icon {
+  width: 47.74px;
+  height: 52.72px;
 }
 
 .message {
-  margin-top: 10px;
-  text-align: center;
-  font-size: 15px;
-  font-weight: 100;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: row;
 }
 
-.text1 {
-  border-bottom: 5px solid white;
-  border-right: 15px solid transparent;
-  margin-left: 245px;
-  margin-top: 12px;
+.user-message {
+  flex-direction: row-reverse !important;
 }
+
+.tail {
+  border-bottom: 5px solid white;
+  border-left: 15px solid transparent;
+}
+
+.user-message > .tail {
+  transform: rotateY(180deg);
+}
+
+.message-text {
+  background-color: white;
+  border-radius: 5px 5px 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1rem;
+}
+
+.user-message > .message-text {
+  border-radius: 5px 5px 0 5px;
+}
+
+.hints {
+  max-width: 80%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: .5rem
+}
+
+.hint {
+  padding: .4rem;
+  margin: 0;
+  background-color: #ffffffaa;
+  border-radius: 0px 5px 5px 5px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.hint:hover {
+  background-color: white;
+}
+
+.notices {}
