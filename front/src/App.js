@@ -4,6 +4,7 @@ import './App.css';
 import robot from './assets/photos/robot.png'
 import profile from './assets/photos/profile.png'
 import Example from './components/layers/Example';
+import Request from './components/layers/Request';
 
 function App() {
 
@@ -69,12 +70,12 @@ function App() {
                 <span className='message-text'>Привет! Чем могу помочь?</span>
               </div>
             </div>
-            <div className='hints'>
+            {/* <div className='hints'>
               <Example />
               <Example />
               <Example />
               <Example />
-            </div>
+            </div> */}
           </div>
           <div className='message-item user-item'>
             <div className='message-block'>
@@ -110,6 +111,7 @@ function App() {
             </div>
           </div>
         </div>
+        <Request />
         {/* <div className='Nhint'>
             <img src={robot} className='image'></img>
             <div className='text'></div>
@@ -143,9 +145,9 @@ function App() {
 
           </div> */}
       </div>
-      <div className='window notices'>
+      {/* <div className='window notices'>
 
-      </div>
+      </div> */}
 
     </div>
   );
