@@ -8,28 +8,38 @@ function notification() {
         }
     )
 
-    var ntfctn = {
+    let date = new Date();
+    let notification = {
         text: "Hello from notification",
-        date: new Date().toLocaleTimeString(),
+        date: date.toLocaleDateString() + " " + date.toLocaleTimeString(),
     }
 
-    addNotification(ntfctn);
+    addNotification(notification);
 }
 
+function createNotification(text) {
+    let date = new Date();
+    let notification = {
+        text: text,
+        date: date.toLocaleDateString() + " " + date.toLocaleTimeString(),
+    }
 
-function addNotification(ntfctn) {
+    addNotification(notification);
+}
+
+function addNotification(item) {
     let notifications = document.querySelector('#notices');
     let notification = document.createElement('div')
     let items = localStorage.getItem("notifications");
 
     if (items) {
         let arr = JSON.parse(items);
-        arr.push(ntfctn);
+        arr.push(item);
         console.log(arr);
         localStorage.setItem("notifications", JSON.stringify(arr));
     } else {
         let arr = [];
-        arr.push(ntfctn);
+        arr.push(item);
         localStorage.setItem("notifications", JSON.stringify(arr));
     }
 
@@ -37,7 +47,7 @@ function addNotification(ntfctn) {
     notification.innerHTML = `
                     <div class="notification">
                         <div class="notification-text">
-                            ${ntfctn.text}
+                            ${item.text}
                         </div>
                         <div class="notification-right">
                             <div class="notification-right-column">
@@ -45,7 +55,7 @@ function addNotification(ntfctn) {
                                     <img class="notification-close-img" src="photos/close.png">
                                 </div>
                                 <div class="notification-date">
-                                    ${ntfctn.date}
+                                    ${item.date}
                                 </div>
                             </div>
                         </div>
