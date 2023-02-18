@@ -8,7 +8,11 @@ window.addEventListener(
     }
 )
 
-let dict2 = ["1 asd", "2 asd", "3 asd", "4 asd"]
+let dict2 = ["Пример: Проект ... направлен на ... .  Концепция реализации проекта предполагает ..., а также ... . ",
+    "Пример: Проблема - отсутствие интернета. Решение: 1. перезагрузка роутера, 2. Звонок провайдеру.",
+    "Пример: Студенты пяти педагогических колледжей Зюзюкинска в возрасте от 14 до 25 лет в количестве 100 человек",
+    "Пример: Создание условий для повышения компетенций в областях: ..., у " +
+"студентов: ..., путем организации ... в период с ... по ..."]
 
 let newDiv = document.createElement("div");
 newDiv.innerHTML = "<div style='display: inline-block; flex-direction: row; height: 16px; width: 16px; margin-top: 2px'><svg style=\" width: 16px; height: 16px\" version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\"\n" +
@@ -48,35 +52,33 @@ let addQuest = () => {
                  if (href.includes('https://grants.myrosmol.ru/projects/edit/', 0) || href.includes('https://grants.myrosmol.ru/projects/create/', 0)){
                      switch (true) {
                          case href.includes('b651ec1b-e302-4e19-b567-15000fce5111', 80) :
-                             //addImgQ(0)
+                             //addImgQ()
                              break
                          case href.includes('48c4ccfd-7f7e-456f-95d4-3380c5d23b8e', 80) :
-                             addImgQ(0)
+                             addImgQ()
                              break
                          case href.includes('1d802125-f5b6-4a43-9898-140fac1e4671', 80) :
-                            // addImgQ(0)
+                            // addImgQ()
                              break
                          case href.includes('33f9846f-a29d-417f-9353-eb4ec30025de', 80) :
-
+                             //addImgQ()
                              break
                          case href.includes('2ea66431-4579-4f1c-a07f-803d709bf630', 80) :
-                             //addImgQ(0)
+                             //addImgQ()
                              break
                          case href.includes('8c961262-869d-4427-bfe2-c1e5159237b0', 80) :
-                             //addImgQ(0)
+                             //addImgQ()
                              break
                          case href.includes('0c524668-613f-4d53-b18e-75b1c56bc544', 80) :
-                             //addImgQ(0)
+                             //addImgQ()
                              break
                          case href.includes('44a01e7e-5ff8-4464-af70-fbaffb742db3', 80) :
-                             //addImgQ(0)
+                             //addImgQ()
                              break
                          case href.includes('8a78f7be-1e0a-4815-a2c5-5fb5262f5b0c', 80) :
-                             //addImgQ(0)
+                             //addImgQ()
                              break
                          default :
-                             //console.log('1-1')
-                             //addImgQ(0)
                              break
                      }
                  }
@@ -85,23 +87,20 @@ let addQuest = () => {
         }, 100
     )
 }
-function addImgQ(id_start) {
-    let list = document.querySelectorAll('.base-textarea')
 
+function addImgQ() {
+    let list = document.querySelectorAll('.base-textarea')
     for (let i = 0; i < list.length-2 ; i++) {
         let div1 = newDiv.cloneNode(true)
-
-        div1.innerHTML ="<div style='margin-left: 1vh; z-index: 10; vertical-align: middle; text-align: center; display: flex;' id=b"+ i + ">" + div1.innerHTML +
-            "<div style='display: none; width: 100%; background-color: #FBB647' id=i"+ i + ">" + dict2[i] + "</div></div>"
-
+        div1.innerHTML ="<div style='position: relative;  margin-left: 1vh; z-index: 10; vertical-align: middle; text-align: center; display: flex;' id=b"+ i + ">" + div1.innerHTML +
+            "<div style='display: none' id=i"+ i + ">" + dict2[i] + "</div></div>"
         list[i].insertAdjacentHTML("beforebegin", div1.innerHTML)
-
         document.getElementById("b" + i).firstElementChild.addEventListener('click', (event) => {
-            document.getElementById("i" + i).setAttribute('style', 'display: flex; flex-direction: row; margin-left: 20px')
+            document.getElementById("i" + i).setAttribute('style', 'max-height: 100px; width: 400px; padding:0.5rem 1rem; left: 20px; bottom: 0; text-align: center; border-radius: 5px; position: absolute; display: flex; flex-direction: row; background-color: #FBB647')
         })
-
+        document.getElementById("i" + i).addEventListener('click', (event) => {
+            document.getElementById("i" + i).setAttribute('style', 'display: none')
+        })
     }
-
-
 }
 
