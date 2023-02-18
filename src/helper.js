@@ -17,7 +17,8 @@ let addHelper = () => {
     let baseListComponents = [
         'https://grants.myrosmol.ru/projects-archive',
         'https://grants.myrosmol.ru/projects',
-        'https://grants.myrosmol.ru/participants'
+        'https://grants.myrosmol.ru/participants',
+        'https://grants.myrosmol.ru/events'
     ]
 
     setInterval(
@@ -37,6 +38,9 @@ let addHelper = () => {
                             break
                         case baseListComponents[2]:
                             readParticipants()
+                            break
+                        case baseListComponents[3]:
+                            readEvents()
                             break
                         default:
                             break
@@ -63,8 +67,6 @@ function readProjectArchive() {
         let title = list[i].getElementsByTagName('h3')[0]
         title = title.textContent || title.innerText
         title = title.replace(' в архиве', '')
-
-
     }
 }
 
@@ -100,9 +102,9 @@ function readProjects() {
         let status = false
 
         for (let j = 0; j < participants.length; j++) {
-            console.log({f: participants[j].title, s: template})
+            console.log({ f: participants[j].title, s: template })
             // if (participants[i].title.indexOf(template) != -1 || template.indexOf(participants[i].title) != -1) {
-            if (stringSimilarity.compareTwoStrings(participants[j].title, template) > 0.5){ 
+            if (stringSimilarity.compareTwoStrings(participants[j].title, template) > 0.5) {
                 addHint(list[i], 'Заявка по проекту подана', 'success')
                 status = true
                 break
@@ -132,6 +134,11 @@ function readParticipants() {
         status = status.textContent
         status = status.slice(1, status.length - 1)
 
+        if (status == 'Победитель') {
+            //todo
+            //уведомление о победе
+        }
+
         newList.push({
             title,
             status
@@ -139,6 +146,45 @@ function readParticipants() {
     }
 
     writeLS('participants', newList)
+}
+
+function readEvents() {
+
+    let events = readLS('events')
+    let list = document.getElementsByClassName('base-card')
+
+    if (events.length < events)
+
+    // let newList = []
+
+    for (let i = 0; i < list.length; i++) {
+
+        let title = list[i].querySelector('.events-card_name_3txzu')
+
+        title = title.textContent || title.innerText
+        title = title.slice(1, title.length - 1)
+
+        let date = list[i].querySelector('.events-card_date_1Y1Ef')
+        date = date.textContent || title.innerText
+        date = date.slice(1, date.length - 1)
+
+        for (let j = 0; j < events.length; j++) {
+            if (events[i].title == title) {
+                if (events[i].date != date) {
+                    //todo
+                    //добавить уведомление
+                }
+                break
+            }
+        }
+
+        newList.push({
+            title,
+            date
+        })
+    }
+
+    writeLS('events', newList)
 }
 
 function addHint(node, text, color) {
@@ -178,5 +224,6 @@ function writeLS(key, value) {
 }
 
 function readLS(key) {
-    return JSON.parse(localStorage.getItem(key))
+    let obj = JSON.parse(localStorage.getItem(key))
+    return !obj ? [] : obj
 }
