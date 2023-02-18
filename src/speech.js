@@ -3,8 +3,6 @@ var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
 const requestInput = document.querySelector('.request-input');
-// var resultPara = document.querySelector('.result');
-// var diagnosticPara = document.querySelector('.output');
 
 const testBtn = document.querySelector('.microphone');
 

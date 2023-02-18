@@ -14,7 +14,9 @@
   "permissions": [
     "scripting",
     "activeTab",
-    "contentSettings"
+    "contentSettings",
+    "tabs",
+    "notifications"
   ],
   "content_scripts": [
     {
