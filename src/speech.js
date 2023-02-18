@@ -21,6 +21,9 @@ function testSpeech() {
     recognition.interimResults = false;
     // recognition.maxAlternatives = 1;
 
+    //todo
+    //поменять верстку: убрать инпут и поменять микрофон
+
     recognition.start();
 
     recognition.onresult = function (event) {
@@ -53,6 +56,10 @@ function testSpeech() {
 
     recognition.onend = function (event) {
         //Fired when the speech recognition service has disconnected.
+
+        //todo
+        //вернуть все как было
+
         console.log('SpeechRecognition.onend');
     }
 
