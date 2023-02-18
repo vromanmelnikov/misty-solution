@@ -24,7 +24,7 @@
         </div>
         <div class='window chat' id="chat">
             <div class='messages'>
-                <div class='message-item'>
+                <div class='message-block-without-microphone'>
                     <div class='message-block'>
                         <img src="./photos/robot.png" class='message-icon'></img>
                         <div class='message'>
@@ -47,12 +47,12 @@
                         </span>
                     </div>
                 </div>
-                <div class='message-item user-item'>
+                <div class='message-item user-item' id="message-item">
                     <div class='message-block'>
                         <img src="./photos/profile.png" class='message-icon'></img>
                         <div class='message user-message'>
                             <div class='tail'></div>
-                            <span class='message-text'>Привет! Чем могу помочь?</span>
+                            <span class='message-text' id="message_text"></span>
                         </div>
                     </div>
                 </div>
@@ -107,15 +107,18 @@
                     </div>
                 </div>
             </div>
-            <div class="request-block">
-                <input class='request-input' placeholder="Введите запрос..."></input>
-                <button class='request-button'>
+            <div class="request-block" id="request-block" name="request-block">
+                <input class='request-input' placeholder="Введите запрос..." id="input"></input>
+                <button class='request-button' id="microphone-off">
                     <img src='./photos/microphone.png' class="microphone"></img>
                 </button>
-                <button class='request-button'>
-                    <img src='./photos/send.png' class="send"></img>
+                <button class='request-button' >
+                    <img src='./photos/send.png' class="send" id="send"></img>
                 </button>
 
+            </div >
+            <div class="request-block" id="request-block-without-input">
+                <img src='./photos/microphone.png' class="microphone-without"></img>
             </div>
         </div>
         <div class="window notices" id="notices">
@@ -125,6 +128,7 @@
 
     <script src="script.js"></script>
     <script src="speech.js"></script>
+   
 </body>
 
 </html>
