@@ -23,6 +23,7 @@
       ],
       "js": [
         "helper.js",
+        "question.js",
         "auto-trigger.js"
       ],
       "persistent": false
