@@ -22,8 +22,10 @@
         "https://grants.myrosmol.ru/*"
       ],
       "js": [
-        "helper.js"
-      ]
+        "helper.js",
+        "auto-trigger.js"
+      ],
+      "persistent": false
     }
   ]
 }
