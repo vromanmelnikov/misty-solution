@@ -22,6 +22,15 @@ function addNotification(ntfctn) {
     let notification = document.createElement('div')
     let items = localStorage.getItem("notifications");
 
+    chrome.notifications.create(
+        {
+            title: 'Ассистент',
+            message: ntfctn,
+            iconUrl: 'favicon.png',
+            type: 'basic'
+        }
+    )
+
     if (items) {
         let arr = JSON.parse(items);
         arr.push(ntfctn);
@@ -88,4 +97,4 @@ function loadNotifications() {
 }
 
 loadNotifications();
-// notification();
+notification();

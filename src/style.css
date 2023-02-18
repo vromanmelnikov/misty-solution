@@ -42,6 +42,7 @@ body {
 
 .window {
     height: 400px;
+    max-height: 400px !important;
     width: 100%;
     box-sizing: border-box;
 }
@@ -231,6 +232,8 @@ select:focus {
 .notices {
     display: none;
     background-color: #FBB647;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
 .notification-item {

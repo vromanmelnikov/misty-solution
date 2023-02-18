@@ -1,12 +1,38 @@
+
 window.addEventListener(
     'load', (event) => {
         setTimeout(
             () => {
                 addHelper()
+                
             }, 100
         )
     }
 )
+
+let addNotification = (ntfctn) => {
+    let items = localStorage.getItem("notifications");
+
+    chrome.notifications.create(
+        {
+            title: 'Ассистент',
+            message: ntfctn,
+            iconUrl: 'favicon.png',
+            type: 'basic'
+        }
+    )
+
+    if (items) {
+        let arr = JSON.parse(items);
+        arr.push(ntfctn);
+        console.log(arr);
+        localStorage.setItem("notifications", JSON.stringify(arr));
+    } else {
+        let arr = [];
+        arr.push(ntfctn);
+        localStorage.setItem("notifications", JSON.stringify(arr));
+    }
+}
 
 let addHelper = () => {
 
@@ -26,29 +52,36 @@ let addHelper = () => {
 
             let href = window.location.href
 
-            if (baseListComponents.indexOf(href) !== -1 && checkFlag == false && oldHref != '') {
-                let notEmptyList = checkBaseList()
-                if (notEmptyList == true) {
-                    switch (href) {
-                        case baseListComponents[0]:
-                            readProjectArchive()
-                            break
-                        case baseListComponents[1]:
-                            readProjects()
-                            break
-                        case baseListComponents[2]:
-                            readParticipants()
-                            break
-                        case baseListComponents[3]:
-                            readEvents()
-                            break
-                        default:
-                            break
+            if (checkFlag == false && oldHref != '') {
+                if (baseListComponents.indexOf(href) !== -1) {
+                    // console.log(111)
+                    let notEmptyList = checkBaseList()
+                    if (notEmptyList == true) {
+                        switch (href) {
+                            case baseListComponents[0]:
+                                readProjectArchive()
+                                break
+                            case baseListComponents[1]:
+                                readProjects()
+                                break
+                            case baseListComponents[2]:
+                                readParticipants()
+                                break
+                            case baseListComponents[3]:
+                                readEvents()
+                                break
+                            default:
+                                break
+                        }
+                        checkFlag = true
                     }
-                    checkFlag = true
+                    else {
+                        checkFlag = false
+                    }
                 }
-                else {
-                    checkFlag = false
+                else if (href.indexOf(baseListComponents[3]) != -1 && href.length > baseListComponents[3].length) {
+                    addInfoForEvent()
+                    checkFlag = true
                 }
             }
 
@@ -56,7 +89,7 @@ let addHelper = () => {
                 oldHref = href
                 checkFlag = false
             }
-        }, 500
+        }, 300
     )
 }
 
@@ -102,10 +135,8 @@ function readProjects() {
         let status = false
 
         for (let j = 0; j < participants.length; j++) {
-            console.log({ f: participants[j].title, s: template })
-            // if (participants[i].title.indexOf(template) != -1 || template.indexOf(participants[i].title) != -1) {
             if (stringSimilarity.compareTwoStrings(participants[j].title, template) > 0.5) {
-                addHint(list[i], 'Заявка по проекту подана', 'success')
+                addHint(list[i], 'Заявка на конкурс подана', 'success')
                 status = true
                 break
             }
@@ -153,9 +184,11 @@ function readEvents() {
     let events = readLS('events')
     let list = document.getElementsByClassName('base-card')
 
-    if (events.length < events)
+    let newList = []
 
-    // let newList = []
+    if (events.length < events) {
+
+    }
 
     for (let i = 0; i < list.length; i++) {
 
@@ -171,8 +204,7 @@ function readEvents() {
         for (let j = 0; j < events.length; j++) {
             if (events[i].title == title) {
                 if (events[i].date != date) {
-                    //todo
-                    //добавить уведомление
+                    addNotification('Поменялись сроки у мероприятия ' + `"${title}"`)
                 }
                 break
             }
@@ -185,6 +217,41 @@ function readEvents() {
     }
 
     writeLS('events', newList)
+}
+
+function addInfoForEvent() {
+
+    let type = document.querySelectorAll('.event-view_value_RATxE')[1]
+    type = type.textContent || type.innerText
+    type = type.slice(1, type.length - 1)
+
+    switch (type) {
+        case 'Конкурс':
+            let events = readLS('events')
+            let name = document.querySelector('h2.app-article_title_1wM7c')
+            name = name.textContent || name.innerText
+            name = name.slice(1, name.length - 1)
+            for (let i = 0; i < events.length; i++) {
+                if (events[i].title == name) {
+                    events[i].link = window.location.href
+                    let max = document.querySelectorAll('.event-view_value_RATxE')[6]
+                    max = max.textContent || max.innerText
+                    max = max.slice(1, max.length - 1)
+                    events[i].max = max
+                    let draft = document.querySelectorAll('.event-view-aside_entry_ZgS9i')[2]
+                    draft = draft.getElementsByClassName('base-link__text')[0]
+                    draft = draft.textContent || draft.innerText
+                    draft = draft.slice(1, draft.length - 1)
+                    events[i].draftName = draft
+                    break
+                }
+            }
+            writeLS('events', events)
+            break
+        default:
+            break
+    }
+
 }
 
 function addHint(node, text, color) {
