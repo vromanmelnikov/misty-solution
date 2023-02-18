@@ -8,8 +8,6 @@ import Request from './components/layers/Request';
 
 function App() {
 
-  let tabFlag = true
-
   document.addEventListener(
     ('click'),
     (event) => {
@@ -36,7 +34,7 @@ function App() {
           Уведомления
         </div>
       </div>
-      <div className='window chat'>
+      <div className='window chat' id='chat'>
         <div className='messages'>
           <div className='message-item'>
             <div className='message-block'>
@@ -112,43 +110,7 @@ function App() {
           </div>
         </div>
         <Request />
-        {/* <div className='Nhint'>
-            <img src={robot} className='image'></img>
-            <div className='text'></div>
-            <div className='tail'>
-              <h1 className='message'>Привет! Чем могу помочь?</h1>
-            </div>
-          </div>
-          <div className='profile'>
-
-            <div className='tail'>
-              <h1 className='message'>Привет! Чем могу помочь?</h1>
-              <div className='text1'></div>
-
-            </div>
-            <img src={profile} className='profile-photo'></img>
-          </div>
-          <div className='Nhint'>
-            <img src={robot} className='image'></img>
-            <div className='text'></div>
-            <div className='tail'>
-              <h1 className='message'>Опишите проблему подробнее</h1>
-            </div>
-          </div>
-          <div>
-            <div className='example-block'>
-              <Example />
-              <Example />
-              <Example />
-              <Example />
-            </div>
-
-          </div> */}
       </div>
-      {/* <div className='window notices'>
-
-      </div> */}
-
     </div>
   );
 }
