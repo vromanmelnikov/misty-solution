@@ -10,6 +10,7 @@ body {
 
 .grabBtn {
     background-color: #212529;
+    background-color: #f03d32;
 }
 
 .Modal {
@@ -41,6 +42,7 @@ body {
 
 .window {
     height: 400px;
+    max-height: 400px !important;
     width: 100%;
     box-sizing: border-box;
 }
@@ -230,6 +232,7 @@ select:focus {
 
 .notices {
     display: none;
+
 }
 
 #request-block-without-input{
@@ -249,4 +252,64 @@ select:focus {
     display: flex;
     flex-direction: column;
     gap: .5rem
+    background-color: #FBB647;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.notification-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.notification {
+    margin: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+}
+
+.notification-text {
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+    padding: 1rem 1rem;
+}
+
+.notification-right {
+    width: 25%;
+    display: flex;
+    flex-direction: row-reverse !important;
+}
+
+.notification-right-column {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.notification-close {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.notification-close-img {
+    width: 16px;
+    height: 16px;
+}
+
+.notification-date {
+    height: 50%;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column-reverse !important;
+    gap: .5rem;
 }

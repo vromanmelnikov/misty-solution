@@ -13,9 +13,11 @@
   },
   "permissions": [
     "scripting",
-    "activeTab"
+    "activeTab",
+    "contentSettings",
+    "tabs",
+    "notifications"
   ],
-  "background": {},
   "content_scripts": [
     {
       "matches": [
@@ -23,7 +25,8 @@
       ],
       "js": [
         "helper.js",
-        "auto-trigger.js"
+        "question.js",
+        "string-similarity.js"
       ],
       "persistent": false
     }
