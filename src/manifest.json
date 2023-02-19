@@ -1,0 +1,34 @@
+{
+  "name": "Ассистент",
+  "description": "Помощь в оформлении грантовой заявки",
+  "author": "MISty",
+  "version": "1.0",
+  "manifest_version": 3,
+  "icons": {
+    "128": "favicon.png"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "favicon.png"
+  },
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "contentSettings",
+    "tabs",
+    "notifications"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://grants.myrosmol.ru/*"
+      ],
+      "js": [
+        "helper.js",
+        "question.js",
+        "string-similarity.js"
+      ],
+      "persistent": false
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="jquery-3.6.3.js"></script>
+    <title>Ассистент</title>
+</head>
+
+<body>
+
+    <div class="Modal">
+        <div class='tabs' id='tabs'>
+            <div class='tab' id='tab_1'>
+                Чат
+            </div>
+            <div class='tab unactive-tab' id='tab_2'>
+                Уведомления
+            </div>
+        </div>
+        <div class='window chat' id="chat">
+            <div class='messages'>
+                <div class='message-item'>
+                    <div class='message-block'>
+                        <img src="./photos/robot.png" class='message-icon'></img>
+                        <div class='message'>
+                            <div class='tail'></div>
+                            <span class='message-text'>Привет! Чем могу помочь?</span>
+                        </div>
+                    </div>
+                    <div class='hints' id="hints1">
+                        <!-- <span class="hint" onclick="">
+                            Заполнение заявки
+                        </span>
+                        <span class="hint" onclick="">
+                            Заполнение заявки
+                        </span>
+                        <span class="hint" onclick="">
+                            Заполнение заявки
+                        </span>
+                        <span class="hint" onclick="">
+                            Заполнение заявки
+                        </span> -->
+                    </div>
+                </div>
+                <!-- <div class='message-item user-item' id="message-item">
+                    <div class='message-block'>
+                        <img src="./photos/profile.png" class='message-icon'></img>
+                        <div class='message user-message'>
+                            <div class='tail'></div>
+                            <span class='message-text' id="message_text"></span>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class='message-item'>
+                    <div class='message-block'>
+                        <img src="photos/robot.png" class='message-icon'></img>
+                        <div class='message'>
+                            <div class='tail'></div>
+                            <span class='message-text'>Привет! Чем могу помочь?</span>
+                        </div>
+                    </div>
+                </div>
+                <div class='message-item user-item'>
+                    <div class='message-block'>
+                        <img src="./photos/profile.png" class='message-icon'></img>
+                        <div class='message user-message'>
+                            <div class='tail'></div>
+                            <span class='message-text'>Привет! Чем могу помочь?</span>
+                        </div>
+                    </div>
+                </div>
+                <div class='message-item'>
+                    <div class='message-block'>
+                        <img src="./photos/robot.png" class='message-icon'></img>
+                        <div class='message'>
+                            <div class='tail'></div>
+                            <span class='message-text'>Привет! Чем могу помочь?</span>
+                        </div>
+                    </div>
+                    <div class='hints'>
+                        <span class="hint">
+                            Заполнение заявки
+                        </span>
+                        <span class="hint">
+                            Заполнение заявки
+                        </span>
+                        <span class="hint">
+                            Заполнение заявки
+                        </span>
+                        <span class="hint">
+                            Заполнение заявки
+                        </span>
+                    </div>
+                </div>
+                <div class='message-item user-item'>
+                    <div class='message-block'>
+                        <img src="./photos/profile.png" class='message-icon'></img>
+                        <div class='message user-message'>
+                            <div class='tail'></div>
+                            <span class='message-text'>Привет! Чем могу помочь?</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div> 
+            <div class="request-block" id="request-block" name="request-block">
+                <input class='request-input' placeholder="Введите запрос..." id="message-input"></input>
+                <button class='request-button' id="microphone-off">
+                    <img src='./photos/microphone.png' class="microphone"></img>
+                </button>
+                <button class='request-button'>
+                    <img src='./photos/send.png' class="send" id="send"></img>
+                </button>
+
+            </div>
+            <div class="request-block" id="request-block-without-input">
+                <img src='./photos/microphone.png' class="microphone-without"></img>
+            </div>
+        </div>
+        <div class="window notices" id="notices">
+            <!-- <div class="notification-item">
+                <div class="notification-text">
+                    Наш помощник всегда уведомит вас о самом важном!
+                </div>
+                <div class="notification-right">
+                    <div class="notification-right-column">
+                        <div class="notification-close">
+                            <img class="notification-close-img" src="photos/close.png">
+                        </div>
+                        <div class="notification-date">
+                            01.01.2023 23:59
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <script src="auto-trigger.js"></script>
+    <script src="script.js"></script>
+    <script src="speech.js"></script>
+    <script src="notification.js"></script>
+
+</body>
+
+</html>
