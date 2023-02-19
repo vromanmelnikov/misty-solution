@@ -4,6 +4,11 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
 
 const requestInput = document.querySelector('.request-input');
 
+const elem = document.querySelector('#request-block');
+const correspondence = [];
+// var resultPara = document.querySelector('.result');
+// var diagnosticPara = document.querySelector('.output');
+
 const testBtn = document.querySelector('.microphone');
 
 function testSpeech() {
@@ -24,9 +29,25 @@ function testSpeech() {
 
     recognition.start();
 
+    document.querySelector('#microphone-off').onclick = function() {
+        state = elem.style.display; 
+        if (state =='') elem.style.display='none'; 
+        else elem.style.display='';
+        document.querySelector('#request-block-without-input').style.display="flex";
+       
+    }
+
     recognition.onresult = function (event) {
         const speechResult = event.results[0][0].transcript.toLowerCase();
         requestInput.value = speechResult;
+        document.getElementById('message_text');
+        correspondence.push(...speechResult)
+        message_text.innerHTML =  correspondence.pop();
+        document.querySelector("#message-item").style.display="flex";
+        const text_input = document.querySelector("#input");
+        console.log(text_input.value)
+        text_input.value = " ";
+        
         console.log('Speech received: ' + speechResult + '.');
         console.log('Confidence: ' + event.results[0][0].confidence);
     }
@@ -51,14 +72,19 @@ function testSpeech() {
         //Fired when the user agent has finished capturing audio.
         console.log('SpeechRecognition.onaudioend');
     }
+    
+    
 
     recognition.onend = function (event) {
+        document.querySelector('#request-block-without-input').style.display="none"
+    document.querySelector('#request-block').style.display="flex";
         //Fired when the speech recognition service has disconnected.
 
         //todo
         //вернуть все как было
 
         console.log('SpeechRecognition.onend');
+        
     }
 
     recognition.onnomatch = function (event) {
@@ -80,10 +106,23 @@ function testSpeech() {
         //Fired when sound that is recognised by the speech recognition service as speech has been detected.
         console.log('SpeechRecognition.onspeechstart');
     }
+
     recognition.onstart = function (event) {
         //Fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
         console.log('SpeechRecognition.onstart');
     }
 }
+
+document.querySelector('#send').onclick = function() {
+    value = document.querySelector("#input");
+    value= value.value;
+    correspondence.push(value);    
+    document.getElementById('message_text');
+    message_text.innerHTML = correspondence.pop();
+    document.querySelector("#message-item").style.display="flex";
+    value = document.querySelector("#input");
+    value.value = " ";
+}
+
 
 testBtn.addEventListener('click', testSpeech);

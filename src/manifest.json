@@ -25,6 +25,7 @@
       ],
       "js": [
         "helper.js",
+        "question.js",
         "string-similarity.js"
       ],
       "persistent": false
