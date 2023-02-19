@@ -4,7 +4,6 @@ window.addEventListener(
         setTimeout(
             () => {
                 addHelper()
-                
             }, 100
         )
     }
@@ -95,7 +94,6 @@ let addHelper = () => {
 
 function readProjectArchive() {
     let list = document.getElementsByClassName('base-card')
-    let newList = []
     for (let i = 0; i < list.length; i++) {
         let title = list[i].getElementsByTagName('h3')[0]
         title = title.textContent || title.innerText
@@ -166,8 +164,7 @@ function readParticipants() {
         status = status.slice(1, status.length - 1)
 
         if (status == 'Победитель') {
-            //todo
-            //уведомление о победе
+            addNotification('Вы победили в конкурсе ' + title)
         }
 
         newList.push({
