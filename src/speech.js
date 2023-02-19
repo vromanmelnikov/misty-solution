@@ -4,7 +4,27 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
 
 const requestInput = document.querySelector('.request-input');
 const elem = document.querySelector('#request-block');
-const correspondence = [];
+
+
+let photo = document.getElementsByTagName('img')
+console.log('dfhgj',photo)
+let hints = ['статья', 'чат-бот', 'шаблон', 'пособие']
+let hint = document.querySelector(".hints")
+for (let i = 0; i < hints.length; i++) {
+
+    let message = document.createElement('div')
+    message.className = 'hint'
+    message.innerHTML = `
+                        <span  id="${i}">
+                        ${hints[i]}
+                        </span> 
+                            
+                           
+    `
+    hint.appendChild(message)
+
+}
+
 // var resultPara = document.querySelector('.result');
 // var diagnosticPara = document.querySelector('.output');
 
@@ -25,25 +45,20 @@ function testSpeech() {
 
     recognition.start();
 
-    document.querySelector('#microphone-off').onclick = function() {
-        state = elem.style.display; 
-        if (state =='') elem.style.display='none'; 
-        else elem.style.display='';
-        document.querySelector('#request-block-without-input').style.display="flex";
-       
+    document.querySelector('#microphone-off').onclick = function () {
+        state = elem.style.display;
+        if (state == '') elem.style.display = 'none';
+        else elem.style.display = '';
+        document.querySelector('#request-block-without-input').style.display = "flex";
+
     }
 
     recognition.onresult = function (event) {
         const speechResult = event.results[0][0].transcript.toLowerCase();
         requestInput.value = speechResult;
-        document.getElementById('message_text');
-        correspondence.push(...speechResult)
-        message_text.innerHTML =  correspondence.pop();
-        document.querySelector("#message-item").style.display="flex";
         const text_input = document.querySelector("#input");
-        console.log(text_input.value)
-        text_input.value = " ";
-        
+        sendMessage(obj, hintss, hint, hints,speechResult);
+        document.getElementById('message-input').value = " ";
         console.log('Speech received: ' + speechResult + '.');
         console.log('Confidence: ' + event.results[0][0].confidence);
     }
@@ -68,15 +83,15 @@ function testSpeech() {
         //Fired when the user agent has finished capturing audio.
         console.log('SpeechRecognition.onaudioend');
     }
-    
-    
+
+
 
     recognition.onend = function (event) {
-        document.querySelector('#request-block-without-input').style.display="none"
-    document.querySelector('#request-block').style.display="flex";
+        document.querySelector('#request-block-without-input').style.display = "none"
+        document.querySelector('#request-block').style.display = "flex";
         //Fired when the speech recognition service has disconnected.
         console.log('SpeechRecognition.onend');
-        
+
     }
 
     recognition.onnomatch = function (event) {
@@ -105,16 +120,397 @@ function testSpeech() {
     }
 }
 
-document.querySelector('#send').onclick = function() {
-    value = document.querySelector("#input");
-    value= value.value;
-    correspondence.push(value);    
-    document.getElementById('message_text');
-    message_text.innerHTML = correspondence.pop();
-    document.querySelector("#message-item").style.display="flex";
-    value = document.querySelector("#input");
-    value.value = " ";
+
+// document.addEventListener(
+//     'click',(event)=>{
+//         let node = event.target
+//         if (node.className === 'hint') {
+//             let text = node.innerText
+
+//         }
+//     }
+// )
+
+// document.querySelector('#send').onclick = function () {
+//     value = document.querySelector("#input");
+//     value = value.value;
+//     correspondence.push(value);
+//     document.getElementById('message_text');
+//     message_text.innerHTML = correspondence.pop();
+//     document.querySelector(".user-item").style.display = "flex";
+//     value = document.querySelector("#input");
+//     value.value = " ";
+// }
+
+document.querySelector('#send').onclick = function (event) {
+    let value = document.getElementById('message-input').value
+    sendMessage(obj, hintss, hint, hints, value)
+    document.getElementById('message-input').value = "";
+
 }
 
+function sendMessage(obj, hintss, hint, hints, text) {
+    
+    let messages = document.querySelector('.messages')
+    
+    let message = document.createElement('div')
+    message.className = 'message-item user-item'
+    message.innerHTML = `
+                    <div class='message-block'>
+                        <img src="./photos/profile.png" class='message-icon'></img>
+                        <div class='message user-message'>
+                            <div class='tail'></div>
+                            <span class='message-text' id="message_text">
+                            ${text}
+                            </span>
+                        </div>
+                    </div>
+    `
 
+    messages.appendChild(message)
+
+    let req = sendAnswerMessage(obj, hintss, text)
+
+    messages.appendChild(req)
+    let requ = FirstMessage(obj, hintss,text)
+    messages.appendChild(requ)
+}
+
+// function getRequest(obj, hintss, text) {
+//     //todo
+//     //нейронка
+//     let value
+
+//     if (text in obj) {
+
+//         value = obj[text]
+//     }
+//     else {
+//         value = 'Не понял запрос'
+//     }
+
+//     let message = document.createElement('div')
+//     message.className = 'message-item'
+//     message.innerHTML = `
+//                     <div class='message-block'>
+//                         <img src="./photos/robot.png" class='message-icon'></img>
+//                         <div class='message'>
+//                             <div class='tail'></div>
+//                             <span class='message-text' id="message_text">
+//                             ${value}
+//                             </span>
+//                         </div>
+//                     </div>
+//     `
+
+//     return message
+// }
+
+
+function sendAnswerMessage(obj, hintss, text) {
+    let value
+
+    if (text in obj) {
+        value = obj[text]
+    }
+    else {
+
+        value = 'Не понял запрос\nВот популярные запросы'
+    }
+    let message = document.createElement('div')
+    message.className = 'message-item'
+    message.innerHTML = `
+                    <div class='message-block'>
+                        <img src="./photos/robot.png" class='message-icon'></img>
+                        <div class='message'>
+                            <div class='tail'></div>
+                            <span class='message-text' id="message_text">
+                            ${value}
+                            </span>
+                        </div>
+                    </div>
+    `
+    return message
+
+}
+
+let lastURL = ''
+
+function FirstMessage(obj, hintss, text) {
+    console.log(text)
+    let arr=[]
+    if (text in hintss) {
+        arr = hintss[text]
+        
+    }
+    else{
+        arr = hintss["поддержка"]
+    }
+
+    let message = document.createElement('div')
+    message.className = 'hints'
+ 
+
+    for (let i = 0; i < arr.length; i++) {
+        let hint = document.createElement('span')
+
+        hint.className = 'hint'
+        hint.innerText = arr[i].text
+        hint.onclick = (event) => {
+            // //console.log(event.target)
+            // getCurrentTab.then(
+            //     (tab) => {
+            //         //console.log(tab)
+            //     }
+            // )
+            chrome.tabs.query({
+                active: true,
+                lastFocusedWindow: true
+            }, function (tabs) {
+                // and use that tab to fill in out title and url
+                var tab = tabs[0];
+                //console.log(tab.url);
+                
+            })
+            chrome.tabs.update(undefined, { url: arr[i].link });
+            // window.location.href = 
+        }
+
+        message.appendChild(hint)
+    }
+    text= ' '
+    return message
+    
+}
+
+// function setReturnButton() {
+//     setTimeout(
+//         () => {
+//             let lastHints = document.querySelectorAll('.hints')
+//             lastHints = lastHints[lastHints.length - 1]
+//             let hint = document.createElement('span')
+//             hint.className = 'hint'
+//             hint.innerText = 'Вернуться на предыдущую страницу'
+//             hint.onclick = (event) => {
+//                 let url = localStorage.getItem('lastURL')
+//                 chrome.tabs.update(undefined, { url });
+//             }
+//             lastHints.appendChild(hint)
+//         }, 500
+//     )
+// }
+
+// async function getCurrentTab() {
+//     let queryOptions = { active: true, lastFocusedWindow: true };
+//     // `tab` will either be a `tabs.Tab` instance or `undefined`.
+//     let [tab] = await chrome.tabs.query(queryOptions);
+//     return tab;
+// }
+
+function getReq(text) {
+
+    let message = document.createElement('div')
+
+}
+
+document.querySelector(".hints").onclick = function (event) {
+
+    SwitchCase(event, hint, hints, obj, hintss);
+
+}
+function SwitchCase(event, hint, hints, obj, hintss) {
+    let key = event.target.innerText;
+    console.log(key)
+    let key_id = event.target
+    //console.log(key_id.id)
+    console.log(key_id.id)
+    switch (key_id.id) {
+        
+        case '0': {let messages = document.querySelector('.messages')
+            let message = document.createElement('div')
+            message.className = 'message-item user-item'
+            message.innerHTML = `
+                            <div class='message-block'>
+                                <img src="./photos/profile.png" class='message-icon'></img>
+                                <div class='message user-message'>
+                                    <div class='tail'></div>
+                                    <span class='message-text' id="message_text">
+                                    ${key}
+                                    </span>
+                                </div>
+                            </div>
+            `
+            messages.appendChild(message)
+            let req = sendAnswerMessage(obj, hintss, key)
+
+            //console.log(req)
+
+            messages.appendChild(req)
+
+            let requ = FirstMessage(obj, hintss, key)
+            messages.appendChild(requ)
+            document.querySelectorAll('span.hint').onclick = function () {
+                ////console.log(arr)
+                window.open(document.URL(url))
+            }
+            break;}
+            case '1':{let messages_id1 = document.querySelector('.messages')
+            let message_id1 = document.createElement('div')
+            message_id1.className = 'message-item user-item'
+            message_id1.innerHTML = `
+                            <div class='message-block'>
+                                <img src="./photos/profile.png" class='message-icon'></img>
+                                <div class='message user-message'>
+                                    <div class='tail'></div>
+                                    <span class='message-text' id="message_text">
+                                    ${key}
+                                    </span>
+                                </div>
+                            </div>
+            `
+            messages_id1.appendChild(message_id1)
+            let req_id1 = sendAnswerMessage(obj, hintss, key)
+
+            //console.log(req_id1)
+
+            messages_id1.appendChild(req_id1)
+
+            let requ_id1 = FirstMessage(obj, hintss, key)
+            messages_id1.appendChild(requ_id1)
+            document.querySelectorAll('span.hint').onclick = function () {
+                //console.log(arr)
+                window.open(document.URL(url))
+            }
+            break;}
+            case '3':{let messages_id3 = document.querySelector('.messages')
+            let message_id3 = document.createElement('div')
+            message_id3.className = 'message-item user-item'
+            message_id3.innerHTML = `
+                            <div class='message-block'>
+                                <img src="./photos/profile.png" class='message-icon'></img>
+                                <div class='message user-message'>
+                                    <div class='tail'></div>
+                                    <span class='message-text' id="message_text">
+                                    ${key}
+                                    </span>
+                                </div>
+                            </div>
+            `
+            messages_id3.appendChild(message_id3)
+            let req_id3 = sendAnswerMessage(obj, hintss, key)
+
+            //console.log(req_id3)
+
+            messages_id3.appendChild(req_id3)
+
+            let requ_id3 = FirstMessage(obj, hintss, key)
+            messages_id3.appendChild(requ_id3)
+            document.querySelectorAll('span.hint').onclick = function () {
+                //console.log(arr)
+                window.open(document.URL(url))
+            }
+            break;}
+            case '2':{let messages_id2 = document.querySelector('.messages')
+            let message_id2 = document.createElement('div')
+            message_id2.className = 'message-item user-item'
+            message_id2.innerHTML = `
+                            <div class='message-block'>
+                                <img src="./photos/profile.png" class='message-icon'></img>
+                                <div class='message user-message'>
+                                    <div class='tail'></div>
+                                    <span class='message-text' id="message_text">
+                                    ${key}
+                                    </span>
+                                </div>
+                            </div>
+            `
+            messages_id2.appendChild(message_id2)
+            let req_id2 = sendAnswerMessage(obj, hintss, key)
+
+            //console.log(req_id2)
+
+            messages_id2.appendChild(req_id2)
+
+            let requ_id2 = FirstMessage(obj, hintss, key)
+            messages_id2.appendChild(requ_id2)
+            document.querySelectorAll('span.hint').onclick = function () {
+                //console.log(arr)
+                window.open(document.URL(url))
+            }
+            break;}
+    }
+
+
+}
+const obj = {
+    "статья": "Заполнение заявки",
+    "чат-бот": "Чат-бот",
+    "шаблон":"Шаблон заявки",
+    "система поддержки": "Поддержка",
+    "гранды": "Гранты в ФГАИС 'Молодежь России'",
+    "пособие": "Методическое пособие",
+    "с чего начать":"Предлагаю Вам ознакомиться со следующими функциями сервиса"
+}
+const hintss = {
+    "статья": [
+        {
+            text: 'Подробное объяснение как заполнять заявку',
+            link: 'https://grants.myrosmol.ru/articles/a84f4a3b-aae8-417f-9ca0-81fd3e2e2791'
+        },
+        {
+            text: 'Подробное объяснение как заполнять заявку',
+            link: 'https://grants.myrosmol.ru/articles/a84f4a3b-aae8-417f-9ca0-81fd3e2e2791'
+        }
+    ],
+    "чат-бот": [
+        {
+            text: 'Очень полезный чат-бот в телеграм',
+            link: 'https://grants.myrosmol.ru/articles/e701e2ac-861b-4e77-b36b-858c8cdc01ae'
+        }
+
+    ],
+    "шаблон": [
+        {
+            text: 'Шаблон для проектной заявки',
+            link: 'https://grants.myrosmol.ru/articles/df8cd133-95be-4cd0-9dde-bbb26fac59e4'
+        }
+    ],
+    "поддержка": [
+        {
+            text: 'Система грантовой поддержки Росмолодежи 2022',
+            link: 'https://grants.myrosmol.ru/articles/2dd35f05-ea7a-4f27-80a5-81afe0c985d1'
+        },
+        {
+            text: 'Инструкция по работе в грантовом модуле АИС "Молодежь России"',
+            link: 'https://grants.myrosmol.ru/articles/4a44805c-7472-4c4f-8162-2d514403ed21'
+        }
+    ],
+    "гранты в ФГАИС 'Молодежь России": [
+        {
+            text: 'Инструкция по работе в грантовом модуле АИС "Молодежь России"',
+            link: 'https://grants.myrosmol.ru/articles/4a44805c-7472-4c4f-8162-2d514403ed21'
+        }
+    ],
+    "пособие": [
+        {
+            text: 'Методическое пособие для участников конкурса Росмолодёжь.Гранты: "Медиа продвижение проекта"',
+            link: 'https://grants.myrosmol.ru/articles/f6162976-40ec-424a-90a3-9c1ffe48639e'
+        }
+    ],
+    "с чего начать":[
+        {
+            text:'Часто задаваемые вопросы',
+            link:'https://grants.myrosmol.ru/help'
+        },
+        {
+            text:'Проекты',
+            link:'https://grants.myrosmol.ru/projects'
+        },
+        {
+            text:'Ознакомление с мероприятиями',
+            link:'https://grants.myrosmol.ru/events'
+        }
+    ]
+
+}
 testBtn.addEventListener('click', testSpeech);

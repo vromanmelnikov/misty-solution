@@ -80,13 +80,14 @@ body {
 
 .message-item {
     width: 100%;
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: .5rem
 }
 
 .user-item {
     align-items: flex-end;
+    display: flex;
 }
 
 .user-item>.message-block {
