@@ -3,6 +3,7 @@ var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
 const requestInput = document.querySelector('.request-input');
+
 const elem = document.querySelector('#request-block');
 const correspondence = [];
 // var resultPara = document.querySelector('.result');
@@ -22,6 +23,9 @@ function testSpeech() {
     recognition.lang = 'ru-RU';
     recognition.interimResults = false;
     // recognition.maxAlternatives = 1;
+
+    //todo
+    //поменять верстку: убрать инпут и поменять микрофон
 
     recognition.start();
 
@@ -75,6 +79,10 @@ function testSpeech() {
         document.querySelector('#request-block-without-input').style.display="none"
     document.querySelector('#request-block').style.display="flex";
         //Fired when the speech recognition service has disconnected.
+
+        //todo
+        //вернуть все как было
+
         console.log('SpeechRecognition.onend');
         
     }
