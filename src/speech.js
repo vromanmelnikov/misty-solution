@@ -8,7 +8,7 @@ const elem = document.querySelector('#request-block');
 
 
 let photo = document.getElementsByTagName('img')
-console.log('dfhgj',photo)
+console.log('dfhgj', photo)
 let hints = ['статья', 'чат-бот', 'шаблон', 'пособие']
 let hint = document.querySelector(".hints")
 for (let i = 0; i < hints.length; i++) {
@@ -25,9 +25,6 @@ for (let i = 0; i < hints.length; i++) {
     hint.appendChild(message)
 
 }
-
-// var resultPara = document.querySelector('.result');
-// var diagnosticPara = document.querySelector('.output');
 
 const testBtn = document.querySelector('.microphone');
 
@@ -61,7 +58,7 @@ function testSpeech() {
         const speechResult = event.results[0][0].transcript.toLowerCase();
         requestInput.value = speechResult;
         const text_input = document.querySelector("#input");
-        sendMessage(obj, hintss, hint, hints,speechResult);
+        sendMessage(obj, hintss, hint, hints, speechResult);
         document.getElementById('message-input').value = " ";
         console.log('Speech received: ' + speechResult + '.');
         console.log('Confidence: ' + event.results[0][0].confidence);
@@ -128,28 +125,6 @@ function testSpeech() {
     }
 }
 
-
-// document.addEventListener(
-//     'click',(event)=>{
-//         let node = event.target
-//         if (node.className === 'hint') {
-//             let text = node.innerText
-
-//         }
-//     }
-// )
-
-// document.querySelector('#send').onclick = function () {
-//     value = document.querySelector("#input");
-//     value = value.value;
-//     correspondence.push(value);
-//     document.getElementById('message_text');
-//     message_text.innerHTML = correspondence.pop();
-//     document.querySelector(".user-item").style.display = "flex";
-//     value = document.querySelector("#input");
-//     value.value = " ";
-// }
-
 document.querySelector('#send').onclick = function (event) {
     let value = document.getElementById('message-input').value
     sendMessage(obj, hintss, hint, hints, value)
@@ -158,9 +133,9 @@ document.querySelector('#send').onclick = function (event) {
 }
 
 function sendMessage(obj, hintss, hint, hints, text) {
-    
+
     let messages = document.querySelector('.messages')
-    
+
     let message = document.createElement('div')
     message.className = 'message-item user-item'
     message.innerHTML = `
@@ -180,40 +155,9 @@ function sendMessage(obj, hintss, hint, hints, text) {
     let req = sendAnswerMessage(obj, hintss, text)
 
     messages.appendChild(req)
-    let requ = FirstMessage(obj, hintss,text)
+    let requ = FirstMessage(obj, hintss, text)
     messages.appendChild(requ)
 }
-
-// function getRequest(obj, hintss, text) {
-//     //todo
-//     //нейронка
-//     let value
-
-//     if (text in obj) {
-
-//         value = obj[text]
-//     }
-//     else {
-//         value = 'Не понял запрос'
-//     }
-
-//     let message = document.createElement('div')
-//     message.className = 'message-item'
-//     message.innerHTML = `
-//                     <div class='message-block'>
-//                         <img src="./photos/robot.png" class='message-icon'></img>
-//                         <div class='message'>
-//                             <div class='tail'></div>
-//                             <span class='message-text' id="message_text">
-//                             ${value}
-//                             </span>
-//                         </div>
-//                     </div>
-//     `
-
-//     return message
-// }
-
 
 function sendAnswerMessage(obj, hintss, text) {
     let value
@@ -246,18 +190,18 @@ let lastURL = ''
 
 function FirstMessage(obj, hintss, text) {
     console.log(text)
-    let arr=[]
+    let arr = []
     if (text in hintss) {
         arr = hintss[text]
-        
+
     }
-    else{
+    else {
         arr = hintss["поддержка"]
     }
 
     let message = document.createElement('div')
     message.className = 'hints'
- 
+
 
     for (let i = 0; i < arr.length; i++) {
         let hint = document.createElement('span')
@@ -265,59 +209,21 @@ function FirstMessage(obj, hintss, text) {
         hint.className = 'hint'
         hint.innerText = arr[i].text
         hint.onclick = (event) => {
-            // //console.log(event.target)
-            // getCurrentTab.then(
-            //     (tab) => {
-            //         //console.log(tab)
-            //     }
-            // )
             chrome.tabs.query({
                 active: true,
                 lastFocusedWindow: true
             }, function (tabs) {
                 // and use that tab to fill in out title and url
                 var tab = tabs[0];
-                //console.log(tab.url);
-                
+
             })
             chrome.tabs.update(undefined, { url: arr[i].link });
-            // window.location.href = 
         }
 
         message.appendChild(hint)
     }
-    text= ' '
+    text = ' '
     return message
-    
-}
-
-// function setReturnButton() {
-//     setTimeout(
-//         () => {
-//             let lastHints = document.querySelectorAll('.hints')
-//             lastHints = lastHints[lastHints.length - 1]
-//             let hint = document.createElement('span')
-//             hint.className = 'hint'
-//             hint.innerText = 'Вернуться на предыдущую страницу'
-//             hint.onclick = (event) => {
-//                 let url = localStorage.getItem('lastURL')
-//                 chrome.tabs.update(undefined, { url });
-//             }
-//             lastHints.appendChild(hint)
-//         }, 500
-//     )
-// }
-
-// async function getCurrentTab() {
-//     let queryOptions = { active: true, lastFocusedWindow: true };
-//     // `tab` will either be a `tabs.Tab` instance or `undefined`.
-//     let [tab] = await chrome.tabs.query(queryOptions);
-//     return tab;
-// }
-
-function getReq(text) {
-
-    let message = document.createElement('div')
 
 }
 
@@ -330,11 +236,11 @@ function SwitchCase(event, hint, hints, obj, hintss) {
     let key = event.target.innerText;
     console.log(key)
     let key_id = event.target
-    //console.log(key_id.id)
     console.log(key_id.id)
     switch (key_id.id) {
-        
-        case '0': {let messages = document.querySelector('.messages')
+
+        case '0': {
+            let messages = document.querySelector('.messages')
             let message = document.createElement('div')
             message.className = 'message-item user-item'
             message.innerHTML = `
@@ -351,18 +257,17 @@ function SwitchCase(event, hint, hints, obj, hintss) {
             messages.appendChild(message)
             let req = sendAnswerMessage(obj, hintss, key)
 
-            //console.log(req)
-
             messages.appendChild(req)
 
             let requ = FirstMessage(obj, hintss, key)
             messages.appendChild(requ)
             document.querySelectorAll('span.hint').onclick = function () {
-                ////console.log(arr)
                 window.open(document.URL(url))
             }
-            break;}
-            case '1':{let messages_id1 = document.querySelector('.messages')
+            break;
+        }
+        case '1': {
+            let messages_id1 = document.querySelector('.messages')
             let message_id1 = document.createElement('div')
             message_id1.className = 'message-item user-item'
             message_id1.innerHTML = `
@@ -379,18 +284,17 @@ function SwitchCase(event, hint, hints, obj, hintss) {
             messages_id1.appendChild(message_id1)
             let req_id1 = sendAnswerMessage(obj, hintss, key)
 
-            //console.log(req_id1)
-
             messages_id1.appendChild(req_id1)
 
             let requ_id1 = FirstMessage(obj, hintss, key)
             messages_id1.appendChild(requ_id1)
             document.querySelectorAll('span.hint').onclick = function () {
-                //console.log(arr)
                 window.open(document.URL(url))
             }
-            break;}
-            case '3':{let messages_id3 = document.querySelector('.messages')
+            break;
+        }
+        case '3': {
+            let messages_id3 = document.querySelector('.messages')
             let message_id3 = document.createElement('div')
             message_id3.className = 'message-item user-item'
             message_id3.innerHTML = `
@@ -407,18 +311,17 @@ function SwitchCase(event, hint, hints, obj, hintss) {
             messages_id3.appendChild(message_id3)
             let req_id3 = sendAnswerMessage(obj, hintss, key)
 
-            //console.log(req_id3)
-
             messages_id3.appendChild(req_id3)
 
             let requ_id3 = FirstMessage(obj, hintss, key)
             messages_id3.appendChild(requ_id3)
             document.querySelectorAll('span.hint').onclick = function () {
-                //console.log(arr)
                 window.open(document.URL(url))
             }
-            break;}
-            case '2':{let messages_id2 = document.querySelector('.messages')
+            break;
+        }
+        case '2': {
+            let messages_id2 = document.querySelector('.messages')
             let message_id2 = document.createElement('div')
             message_id2.className = 'message-item user-item'
             message_id2.innerHTML = `
@@ -435,29 +338,29 @@ function SwitchCase(event, hint, hints, obj, hintss) {
             messages_id2.appendChild(message_id2)
             let req_id2 = sendAnswerMessage(obj, hintss, key)
 
-            //console.log(req_id2)
-
             messages_id2.appendChild(req_id2)
 
             let requ_id2 = FirstMessage(obj, hintss, key)
             messages_id2.appendChild(requ_id2)
             document.querySelectorAll('span.hint').onclick = function () {
-                //console.log(arr)
                 window.open(document.URL(url))
             }
-            break;}
+            break;
+        }
     }
 
 
 }
 const obj = {
-    "статья": "Заполнение заявки",
-    "чат-бот": "Чат-бот",
-    "шаблон":"Шаблон заявки",
-    "система поддержки": "Поддержка",
-    "гранды": "Гранты в ФГАИС 'Молодежь России'",
-    "пособие": "Методическое пособие",
-    "с чего начать":"Предлагаю Вам ознакомиться со следующими функциями сервиса"
+    "статья": "Ознакомьтесь с популярными статьями о грантах и проектах.",
+    "чат-бот": "Ознакомьтесь с полезным чат-ботом, который поможет Вам лучше ознакомиться с нашим сервисом!",
+    "шаблон": "Шаблон заявки.",
+    "система поддержки": "Тут Вы сможете получить поддержку в различных вопросах!",
+    "гранты": "Гранты в ФГАИС 'Молодежь России'.",
+    "пособие": "Методическое пособие.",
+    "с чего начать": "Предлагаю Вам ознакомиться со следующими функциями сервиса.",
+    "уведомления": "С помощью наших уведомлений Вы всегда будете осведомлены о важных изменениях, в том числе о смене сроков мероприятий и смены статуса участия в грантовом конкурсе!",
+    "что ты можешь": "Я готов отвечать на интересующие Вас вопросы и помогать знакомиться с сервисом! При заполнении проектной информации я буду помогать Вам в самые сложные моменты, а также буду уведомлять о различных изменениях в мероприятиях. Сейчас предлагаю ознакомиться с актуальными мероприятиями на сервисе!"
 }
 const hintss = {
     "статья": [
@@ -493,7 +396,7 @@ const hintss = {
             link: 'https://grants.myrosmol.ru/articles/4a44805c-7472-4c4f-8162-2d514403ed21'
         }
     ],
-    "гранты в ФГАИС 'Молодежь России": [
+    "гранты": [
         {
             text: 'Инструкция по работе в грантовом модуле АИС "Молодежь России"',
             link: 'https://grants.myrosmol.ru/articles/4a44805c-7472-4c4f-8162-2d514403ed21'
@@ -505,19 +408,35 @@ const hintss = {
             link: 'https://grants.myrosmol.ru/articles/f6162976-40ec-424a-90a3-9c1ffe48639e'
         }
     ],
-    "с чего начать":[
+    "с чего начать": [
         {
-            text:'Часто задаваемые вопросы',
-            link:'https://grants.myrosmol.ru/help'
+            text: 'Часто задаваемые вопросы',
+            link: 'https://grants.myrosmol.ru/help'
         },
         {
-            text:'Проекты',
-            link:'https://grants.myrosmol.ru/projects'
+            text: 'Проекты',
+            link: 'https://grants.myrosmol.ru/projects'
         },
         {
-            text:'Ознакомление с мероприятиями',
-            link:'https://grants.myrosmol.ru/events'
+            text: 'Ознакомление с мероприятиями',
+            link: 'https://grants.myrosmol.ru/events'
         }
+    ],
+    "уведомления": [
+        {
+            text: "Ваши заявки на мероприятия",
+            link: "https://grants.myrosmol.ru/participants"
+        },
+        {
+            text: "Актуальные мероприятия",
+            link: "https://grants.myrosmol.ru/events"
+        },
+    ],
+    "что ты можешь": [
+        {
+            text: "Актуальные мероприятия",
+            link: "https://grants.myrosmol.ru/events"
+        },
     ]
 
 }
